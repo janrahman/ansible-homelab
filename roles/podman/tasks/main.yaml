@@ -1,0 +1,53 @@
+# code: language=ansible
+---
+- name: Install, configure and setup podman and compose
+  block:
+    - name: Update and upgrade apt
+      ansible.builtin.apt:
+        update_cache: yes
+        cache_valid_time: 3600
+        upgrade: yes
+
+    - name: Install podman
+      ansible.builtin.apt:
+        name: podman
+        state: present
+
+    - name: Create registries directory
+      ansible.builtin.file:
+        path: "{{ ansible_env.HOME }}/.config/containers"
+        state: directory
+
+    - name: Copy podman registries config
+      ansible.builtin.template:
+        src: templates/registries.conf.j2
+        dest: "{{ ansible_env.HOME }}/.config/containers/registries.conf"
+
+    - name: Set unprivileged port minimum value in sysctl
+      ansible.posix.sysctl:
+        name: net.ipv4.ip_unprivileged_port_start
+        value: 80
+        state: present
+        sysctl_file: /etc/sysctl.d/podman-privileged-ports.conf
+        reload: true
+
+    - name: Download docker compose standalone
+      ansible.builtin.get_url:
+        url: "https://github.com/docker/compose/releases/download/{{ compose_version }}/docker-compose-linux-x86_64"
+        dest: /usr/local/bin/docker-compose
+        mode: a+x
+
+    - name: Enable and start podman systemd service
+      ansible.builtin.systemd:
+        name: podman.socket
+        state: started
+        scope: user
+      become: false
+
+    - name: Add env variable to profile
+      ansible.builtin.lineinfile:
+        path: "{{ ansible_env.HOME }}/.profile"
+        line: 'export DOCKER_HOST="unix:///run/user/$UID/podman/podman.sock"'
+      become: false
+
+  become: true
