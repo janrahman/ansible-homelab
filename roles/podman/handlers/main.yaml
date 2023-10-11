@@ -1,0 +1,35 @@
+# code: language=ansible
+---
+- name: Configure podman
+  block:
+    - name: Create registries directory
+      ansible.builtin.file:
+        path: "{{ ansible_env.HOME }}/.config/containers"
+        state: directory
+
+    - name: Copy podman registries config
+      ansible.builtin.template:
+        src: templates/registries.conf.j2
+        dest: "{{ ansible_env.HOME }}/.config/containers/registries.conf"
+
+- name: Set minimum unprivileged port
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_unprivileged_port_start
+    value: 80
+    state: present
+    sysctl_file: /etc/sysctl.d/podman-privileged-ports.conf
+    reload: true
+
+- name: Enable and configure podman socket
+  block:
+    - name: Enable and start podman systemd service
+      ansible.builtin.systemd:
+        name: podman.socket
+        state: started
+        scope: user
+
+    - name: Add env variable to profile
+      ansible.builtin.lineinfile:
+        path: "{{ ansible_env.HOME }}/.profile"
+        line: 'export DOCKER_HOST="unix:///run/user/$UID/podman/podman.sock"'
+  become: false
