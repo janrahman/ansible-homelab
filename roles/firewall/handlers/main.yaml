@@ -1,0 +1,34 @@
+# code: language=ansible
+---
+- name: Configure ufw
+  block:
+    - name: Disable ufw
+      community.general.ufw:
+        state: disabled
+
+    - name: Allow outgoing traffic
+      community.general.ufw:
+        policy: allow
+        direction: outgoing
+
+    - name: Deny incoming traffic
+      community.general.ufw:
+        policy: deny
+        direction: incoming
+
+    - name: Allow http, https
+      community.general.ufw:
+        rule: allow
+        port: "{{ item }}"
+      loop:
+        - http
+        - https
+
+    - name: Limit ssh
+      community.general.ufw:
+        rule: limit
+        port: "{{ ssh_port }}"
+
+    - name: Enable ufw
+      community.general.ufw:
+        state: enable
