@@ -1,3 +1,4 @@
 # code: language=ansible
 ---
-ssh_port: "2224"
+# Uncomment variable and set a custom port
+# ssh_port: "1024"
