@@ -19,7 +19,7 @@ Guest:
 ### Installing
 
 1. Clone this repository
-1. Create a hosts.ini with at least a remote server in `[remote]` group
+1. Create a `hosts.ini` with at least one remote server in `[remote]` group
 1. Optional: customize ssh port by setting the variable in `roles/firewall/vars`
 
 #### Example
