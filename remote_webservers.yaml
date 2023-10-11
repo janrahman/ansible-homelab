@@ -1,0 +1,6 @@
+# code: language=ansible
+---
+- hosts: remote
+  roles:
+    - podman
+    - firewall
