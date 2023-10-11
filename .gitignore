@@ -1,0 +1,7 @@
+*
+!.gitignore
+!README.md
+!*.yaml
+!roles
+!roles/**/
+!roles/**/templates/*.j2
