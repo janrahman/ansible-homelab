@@ -1,6 +1,7 @@
 # code: language=ansible
 ---
 - name: Configure ufw
+  become: true
   block:
     - name: Disable ufw
       community.general.ufw:
