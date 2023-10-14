@@ -1,3 +1,4 @@
 # code: language=ansible
 ---
-- ansible.builtin.import_playbook: remote_webservers.yaml
+- name: Playbook entrypoint
+  ansible.builtin.import_playbook: remote_webservers.yaml

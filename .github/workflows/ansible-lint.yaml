@@ -1,0 +1,18 @@
+# code: language=yaml
+---
+name: Lint ansible playbook
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Ansible lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run ansible-lint
+        uses: ansible/ansible-lint@main

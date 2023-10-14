@@ -3,5 +3,9 @@
 !README.md
 !*.yaml
 !roles
+!roles/requirements.yml
 !roles/**/
 !roles/**/templates/*.j2
+!.github
+!.github/workflows/
+!.ansible-lint
