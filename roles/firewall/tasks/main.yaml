@@ -4,7 +4,7 @@
   block:
     - name: Update apt packages
       ansible.builtin.import_role:
-        name: update-packages
+        name: update_packages
 
     - name: Install ufw
       ansible.builtin.apt:
