@@ -7,13 +7,13 @@
       ansible.builtin.file:
         path: "{{ ansible_env.HOME }}/.config/containers"
         state: directory
-        mode: 0644
+        mode: "0644"
 
     - name: Copy podman registries config
       ansible.builtin.template:
         src: templates/registries.conf.j2
         dest: "{{ ansible_env.HOME }}/.config/containers/registries.conf"
-        mode: 0644
+        mode: "0644"
 
 - name: Set minimum unprivileged port
   ansible.posix.sysctl:
