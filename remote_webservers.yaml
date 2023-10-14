@@ -1,6 +1,7 @@
 # code: language=ansible
 ---
 - hosts: remote
+  name: Playbook for VPS
   roles:
     - podman
     - firewall
