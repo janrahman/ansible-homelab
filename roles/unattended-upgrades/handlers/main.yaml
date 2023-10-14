@@ -1,0 +1,9 @@
+# code: language=ansible
+---
+- name: Uncomment line from 50unattended-upgrades
+  ansible.builtin.lineinfile:
+    path: /etc/apt/apt.conf.d/50unattended-upgrades
+    regexp: '^//\s+"origin=Debian,codename=${distro_codename}-updates";'
+    line: '        "origin=Debian,codename=${distro_codename}-updates";'
+    state: present
+  become: true

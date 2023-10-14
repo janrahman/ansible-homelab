@@ -1,15 +1,15 @@
 # code: language=ansible
 ---
-- name: Install and setup ufw
+- name: Install and configure unattended upgrades
   block:
     - name: Update apt packages
       ansible.builtin.import_role:
         name: update-packages
 
-    - name: Install ufw
+    - name: Install unattended update packages
       ansible.builtin.apt:
-        name: ufw
+        pkg:
+          - unattended-upgrades
+          - apt-listchanges
         state: present
-      notify:
-        - "Configure ufw"
   become: true
