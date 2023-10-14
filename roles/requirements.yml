@@ -1,4 +1,6 @@
 # code: language=ansible
 ---
 collections:
-  - name: community.general.ufw
+  - name: community.general
+    version: ">=7.5.0"
+    source: https://galaxy.ansible.com
