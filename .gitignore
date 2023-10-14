@@ -5,3 +5,5 @@
 !roles
 !roles/**/
 !roles/**/templates/*.j2
+!.github
+!.github/workflows/
