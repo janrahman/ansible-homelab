@@ -1,0 +1,11 @@
+# code: language=yaml
+---
+# .ansible-lint
+
+profile: min
+
+exclude_paths:
+  - .ansible-lint/
+  - .github/
+
+use_default_rules: true

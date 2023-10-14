@@ -8,3 +8,4 @@
 !roles/**/templates/*.j2
 !.github
 !.github/workflows/
+!.ansible-lint
