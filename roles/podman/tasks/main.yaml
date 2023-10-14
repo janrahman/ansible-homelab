@@ -2,11 +2,8 @@
 ---
 - name: Install, configure and setup podman and compose
   block:
-    - name: Update and upgrade apt
-      ansible.builtin.apt:
-        update_cache: yes
-        cache_valid_time: 3600
-        upgrade: yes
+    - ansible.builtin.import_role:
+        name: update-packages
 
     - name: Install podman
       ansible.builtin.apt:

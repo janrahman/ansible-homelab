@@ -2,11 +2,8 @@
 ---
 - name: Install and setup ufw
   block:
-    - name: Update and upgrade apt
-      ansible.builtin.apt:
-        update_cache: yes
-        cache_valid_time: 3600
-        upgrade: yes
+    - ansible.builtin.import_role:
+        name: update-packages
 
     - name: Install ufw
       ansible.builtin.apt:
