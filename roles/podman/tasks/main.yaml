@@ -1,6 +1,7 @@
 # code: language=ansible
 ---
 - name: Install, configure and setup podman and compose
+  become: true
   block:
     - name: Update apt packages
       ansible.builtin.import_role:
@@ -21,4 +22,3 @@
         mode: a+x
       notify:
         - Enable and configure podman socket
-  become: true

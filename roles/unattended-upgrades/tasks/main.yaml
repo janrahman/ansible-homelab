@@ -1,6 +1,7 @@
 # code: language=ansible
 ---
 - name: Install and configure unattended upgrades
+  become: true
   block:
     - name: Update apt packages
       ansible.builtin.import_role:
@@ -12,4 +13,3 @@
           - unattended-upgrades
           - apt-listchanges
         state: present
-  become: true
